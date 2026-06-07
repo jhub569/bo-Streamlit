@@ -1,2 +1,2 @@
 # bo-Streamlit
-https://python-6argo-bo-86lwdzqyeexk7jevvtvk35.streamlit.app
+https://python-6argo-bo-va8myj9cc6eplqoyuc9uct.streamlit.app
