@@ -8,6 +8,9 @@ on:
         required: false
         default: 'https://python-6argo-bo-va8myj9cc6eplqoyuc9uct.streamlit.app'
         type: string
+  # 新增的定时触发器，每 8 小时运行一次
+  schedule:
+    - cron: '0 */8 * * *'
 
 permissions:
   contents: read
