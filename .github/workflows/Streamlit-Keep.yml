@@ -10,7 +10,7 @@ on:
         type: string
   # 新增的定时触发器，每 8 小时运行一次
   schedule:
-    - cron: '0 */8 * * *'
+    - cron: '0 */4 * * *'
 
 permissions:
   contents: read
