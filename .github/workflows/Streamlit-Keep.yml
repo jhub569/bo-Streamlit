@@ -1,16 +1,17 @@
 name: Streamlit 自动唤醒
 
 on:
+  # 1. 支持手动触发
   workflow_dispatch:
     inputs:
       target_url:
-        description: '目标链接'
+        description: '目标链接 (留空则使用默认URL)'
         required: false
-        default: 'https://python-6argo-bo-va8myj9cc6eplqoyuc9uct.streamlit.app'
         type: string
-  # 新增的定时触发器，每 8 小时运行一次
-  schedule:
-    - cron: '0 */4 * * *'
+
+  # 2. 支持 Uptime-Kuma Webhook 触发 (离线秒级唤醒)
+  repository_dispatch:
+    types: [streamlit_offline_trigger] 
 
 permissions:
   contents: read
@@ -42,9 +43,11 @@ jobs:
           
       - name: 执行唤醒脚本
         env:
-          TARGET_URL: ${{ github.event.inputs.target_url || 'https://sheet-tool-zsjsj.streamlit.app' }}
+          # 优先使用手动传入的 URL，否则使用默认的 Streamlit 地址
+          TARGET_URL: ${{ inputs.target_url || 'https://python-6argo-bo-va8myj9cc6eplqoyuc9uct.streamlit.app' }}
         run: |
           echo "开始执行 Streamlit 应用唤醒任务..."
+          echo "当前目标网址: $TARGET_URL"
           python Keep.py
           echo "唤醒任务执行完毕！"
 
